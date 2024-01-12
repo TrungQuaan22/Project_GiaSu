@@ -255,9 +255,14 @@
         <div class="copyright">
         </div>
     </div>
-
-</body>
-
+<script>
+    //Xử lý ảnh tải lên
+document.getElementById("up_fileimage-avatar").addEventListener("change", function() {
+  const file = this.files[0];
+  const img = document.getElementById("file_uploadimage-avatar");
+  img.src = URL.createObjectURL(file);
+});
+</script>
 <script>
     showMessOk("Đăng nhập thành công!", "success");
     // Session::set('variableName', $value); 
@@ -265,45 +270,6 @@
     function toggleMenu(id) {
         $("#" + id).toggleClass("show");
     }
-    function addAvatar(event) {
- //Chức năng tải ảnh lên
-        // Lấy ảnh đại diện được chọn hoặc tải lên
-  const file = event.target.files[0];
-
-  // Kiểm tra xem ảnh có hợp lệ hay không
-  if (!file.type.match('image.*')) {
-    // Trả về thông báo lỗi
-    alert('Chỉ được chọn ảnh có định dạng hình ảnh.');
-    return;
-  }
-
-  // Lưu ảnh vào máy chủ
-  const formData = new FormData();
-  formData.append('avatar', file);
-
-  // Gửi yêu cầu lên máy chủ
-  fetch('/api/users/avatar', {
-    method: 'POST',
-    body: formData,
-  })
-    .then((response) => {
-      // Kiểm tra kết quả trả về
-      if (response.status === 200) {
-        // Thành công
-        alert('Thêm ảnh đại diện thành công.');
-
-        // Cập nhật ảnh đại diện trên giao diện
-        const img = document.getElementById('file_uploadimage-avatar');
-        img.src = response.url;
-      } else {
-        // Thất bại
-        alert('Thêm ảnh đại diện thất bại.');
-      }
-    })
-    .catch((error) => {
-      // Lỗi
-      console.log(error);
-    });
-}
-
 </script>
+</body>
+
